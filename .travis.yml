@@ -1,0 +1,15 @@
+language: php
+
+php:
+  - 7.1
+
+before_script:
+  - travis_retry composer self-update
+  - travis_retry composer install
+
+script: vendor/bin/phpunit --verbose
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always

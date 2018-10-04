@@ -41,6 +41,8 @@ php artisan vendor:publish --provider="QCod\AppSettings\AppSettingsServiceProvid
 
 It will create [`config/app_settings.php`](#config-file) with all the configuration option and way to define your setting inputs divided into sections.
 
+Now run the migration by `php artisan migrate` to create the settings table. 
+
 ### Getting Started
 First you need to define all the settings you want in our settings page. For example we will need these settings `app_name`, `from_email` & `from_name`. Lets define it in config:
 

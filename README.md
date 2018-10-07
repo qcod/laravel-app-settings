@@ -11,13 +11,13 @@ Use `qcod/laravel-app-settings` to add settings manager with UI in your Laravel 
 
 ### Installation
 
-You can install the package via composer:
+**1** - You can install the package via composer:
 
 ```bash
 $ composer require qcod/laravel-app-settings
 ```
 
-If you are installing on Laravel 5.4 or lower you will be needed to manually register Service Provider by adding it in `config/app.php` providers array and Facade in aliases arrays. 
+**2** - If you are installing on Laravel 5.4 or lower you will be needed to manually register Service Provider by adding it in `config/app.php` providers array and Facade in aliases arrays. 
 
 ```php
 'providers' => [
@@ -33,7 +33,7 @@ If you are installing on Laravel 5.4 or lower you will be needed to manually reg
 
 In Laravel 5.5 or above the service provider automatically get registered and a facade `AppSettings::get('app_name')` will be available.
 
-Now you should publish the config file with:
+**3** - Now you should publish the config file with:
 
 ```bash
 php artisan vendor:publish --provider="QCod\AppSettings\AppSettingsServiceProvider" --tag="config"
@@ -41,7 +41,7 @@ php artisan vendor:publish --provider="QCod\AppSettings\AppSettingsServiceProvid
 
 It will create [`config/app_settings.php`](#config-file) with all the configuration option and way to define your setting inputs divided into sections.
 
-Now run the migration by `php artisan migrate` to create the settings table.
+**4** - Now run the migration by `php artisan migrate` to create the settings table.
 
 ### Getting Started
 First you need to define all the settings you want in our settings page. For example we will need these settings `app_name`, `from_email` & `from_name`. Lets define it in config:
@@ -138,7 +138,7 @@ If your app needs different url to access the settings page you can change from 
 ``` 
 
 ### Use without UI
-If you want to just store the settings into db and don't want the UI for settings, for that simply use the helper function `setting()` or `AppSetting::get('app_name')` to store and retrieve settings from db. For this you don't need to define any section and inputs in app_settings.php config.
+If you want to just store the settings into db and don't want the UI to manage settings? for that simply use the helper function `setting()` or `AppSetting::get('app_name')` to store and retrieve settings from db. For this you don't need to define any section and inputs in `app_settings.php` config.
 
 > Make sure to set `'remove_abandoned_settings' => false` in **config/app_settings.php** otherwise any undefined input fields will be removed on save from UI.
 

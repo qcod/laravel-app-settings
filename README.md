@@ -307,6 +307,58 @@ Add a group of checkboxes
 ]
 ```
 
+#### image, file
+
+You can use `image` and `file` input to upload files. File upload will be automatically handled and old files will be replaced with new.
+
+If you define `mutator` on input then its up to you to handle the uploading, you must return the path of uploaded file from mutator to store in settings and deal with old files.
+
+> . You don't need to use mutator in most of the cases.
+
+You can define `rules` to validate incoming files, either it can be image or any document. 
+
+```php
+[
+    'name' => 'logo',
+    'type' => 'image',
+    'label' => 'Upload logo',
+    'hint' => 'Must be an image and cropped in desired size',
+    'rules' => 'image|max:500',
+    'disk' => 'public', // which disk you want to upload, default to 'public'
+    'path' => 'app', // path on the disk, default to '/',
+    'preview_class' => 'thumbnail', // class for preview of uploaded image
+    'preview_style' => 'height:40px' // style for preview
+]
+
+// handle uploads by yourself using `mutator` 
+[
+    'name' => 'logo',
+    'type' => 'image',
+    'label' => 'Upload logo',
+    'hint' => 'Must be an image and cropped in desired size',
+    'rules' => 'image|max:500',
+    
+    // a simple mutator
+    'mutator' => function($value, $key) {
+        // handle image do some reszing etc
+        $image = Intervention\Image::make(request()->file($key));
+        
+        $path = Storage::disk('public')->put(
+            $imagePath,
+            (string) $image->encode(null, $imageQuality), 
+            'public'
+        );
+        
+        // delete old image etc 
+        Storage::disk('public')->delete(\setting($key));
+        
+        // finally return new path to be stored in db
+        return $path;
+    }
+]
+
+```
+
 ### Not using Bootstrap 4
 
 If your app doesn't use Twitter Bootstrap 4 you can easily customize this in app_settings.php to follow your css library like Bulma, Foundatio CSS or any other custom solution:

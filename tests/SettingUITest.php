@@ -276,6 +276,54 @@ class SettingUITest extends TestCase
             ->assertSee('No')
             ->assertSee('Maintenance');
     }
+
+    /**
+     * it shows file input type on image
+     *
+     * @test
+     */
+    public function it_shows_file_input_type_on_image()
+    {
+        // configure
+        $inputs = [
+            [
+                'type' => 'image',
+                'name' => 'logo',
+                'label' => 'Upload Logo'
+            ]
+        ];
+
+        $this->configureInputs($inputs);
+
+        // assert
+        $this->get('/settings')
+            ->assertStatus(200)
+            ->assertSee('type="file"');
+    }
+
+    /**
+     * it shows file input on type of file
+     *
+     * @test
+     */
+    public function it_shows_file_input_on_type_of_file()
+    {
+        // configure
+        $inputs = [
+            [
+                'type' => 'file',
+                'name' => 'tc',
+                'label' => 'Upload Terms and Conditions'
+            ]
+        ];
+
+        $this->configureInputs($inputs);
+
+        // assert
+        $this->get('/settings')
+            ->assertStatus(200)
+            ->assertSee('type="file"');
+    }
     
     /**
     * it overrides input group class

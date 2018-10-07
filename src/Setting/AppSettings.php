@@ -2,6 +2,9 @@
 
 namespace QCod\AppSettings\Setting;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 class AppSettings
 {
     /**
@@ -98,8 +101,13 @@ class AppSettings
         // set all the fields with updated values
         $allDefinedSettings->each(function ($setting) use ($request) {
             $settingName = $setting['name'];
+            $type = $setting['type'];
 
-            if ($request->has($settingName) || $setting['type'] == 'checkbox') {
+            // handle file upload
+            if (in_array($type, ['file', 'image']) && !isset($setting['mutator'])) {
+                $this->uploadFile($setting, $request);
+                // any other type of field
+            } elseif ($request->has($settingName) || $type == 'checkbox') {
                 $this->set($settingName, $request->get($settingName));
             }
         });
@@ -243,5 +251,53 @@ class AppSettings
         }
 
         return json_encode($value);
+    }
+
+    /**
+     * Upload file
+     *
+     * @param $setting array
+     * @param $request Request
+     * @return string|null
+     */
+    private function uploadFile($setting, $request)
+    {
+        $settingName = array_get($setting, 'name');
+
+        // get the disk and path to upload
+        $disk = array_get($setting, 'disk', 'public');
+        $path = array_get($setting, 'path', '/');
+
+        $uploadedPath = null;
+        $oldFile = $this->get($settingName);
+
+        if ($request->hasFile($settingName)) {
+            $uploadedPath = $request->$settingName->store($path, $disk);
+            $this->set($settingName, $uploadedPath);
+
+            // delete old file
+            $this->deleteFile($oldFile, $disk);
+
+            return $uploadedPath;
+        }
+
+        // check for remove asked
+        if ($request->has('remove_file_' . $settingName)) {
+            $this->deleteFile($oldFile, $disk);
+            $this->set($settingName, null);
+        }
+
+        return $uploadedPath;
+    }
+
+    /**
+     * @param $oldFile
+     * @param $disk
+     */
+    private function deleteFile($oldFile, $disk): void
+    {
+        if ($oldFile && Storage::disk($disk)->exists($oldFile)) {
+            Storage::disk($disk)->delete($oldFile);
+        }
     }
 }

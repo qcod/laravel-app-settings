@@ -21,6 +21,17 @@ return [
                     'rules' => 'required|min:2|max:20', // validation rules for this input
                     'value' => 'QCode', // any default value
                     'hint' => 'You can set the app name here' // help block text for input
+                ],
+                [
+                    'name' => 'logo',
+                    'type' => 'image',
+                    'label' => 'Upload logo',
+                    'hint' => 'Must be an image and cropped in desired size',
+                    'rules' => 'image|max:500',
+                    'disk' => 'public', // which disk you want to upload
+                    'path' => 'app', // path on the disk,
+                    'preview_class' => 'thumbnail',
+                    'preview_style' => 'height:40px'
                 ]
             ]
         ],

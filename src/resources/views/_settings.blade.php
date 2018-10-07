@@ -4,7 +4,7 @@
 
             @includeIf(config('app_settings.flash_partial'))
 
-            <form method="post" action="{{ config('app_settings.url') }}" class="form-horizontal mb-3" role="form">
+            <form method="post" action="{{ config('app_settings.url') }}" class="form-horizontal mb-3" enctype="multipart/form-data" role="form">
                 {!! csrf_field() !!}
 
                 @if( isset($settingsUI) && count($settingsUI) )

@@ -2,8 +2,10 @@
 
 namespace QCod\AppSettings\Tests\Feature;
 
+use Illuminate\Http\UploadedFile;
 use QCod\AppSettings\Tests\TestCase;
 use QCod\AppSettings\Setting\Setting;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SettingsTest extends TestCase
@@ -156,5 +158,80 @@ class SettingsTest extends TestCase
         $this->assertDatabaseHas('settings', $appNameSetting);
         $this->assertCount(2, Setting::all());
         $this->assertDatabaseMissing('settings', $oldSetting);
+    }
+
+    /**
+     * it uploads file and stores path on image type or file type inputs
+     *
+     * @test
+     */
+    public function it_uploads_file_and_stores_path_on_image_type_or_file_type_inputs()
+    {
+        $this->configureInputs([
+            [
+                'name' => 'logo',
+                'type' => 'image',
+                'label' => 'Upload logo',
+                'hint' => 'Must be an image and cropped in desired size',
+                'rules' => 'image|max:500',
+                'disk' => 'public',
+                'path' => 'app'
+            ]
+        ]);
+
+        Storage::fake();
+
+        $logo = UploadedFile::fake()->image('logo.jpg');
+
+        $appNameSetting = ['name' => 'logo', 'val' => 'app/' . $logo->hashName()];
+
+        $this->assertDatabaseMissing('settings', $appNameSetting);
+
+        $this->post('settings', ['logo' => $logo])
+            ->assertRedirect()
+            ->assertSessionHas([
+                'status' => config('app_settings.submit_success_message', 'Settings Saved.')
+            ]);
+
+        $this->assertDatabaseHas('settings', $appNameSetting);
+    }
+
+    /**
+     * it does not auto upload file if a mutator is defined
+     *
+     * @test
+     */
+    public function it_does_not_auto_upload_file_if_a_mutator_is_defined()
+    {
+        $this->configureInputs([
+            [
+                'name' => 'logo',
+                'type' => 'image',
+                'label' => 'Upload logo',
+                'hint' => 'Must be an image and cropped in desired size',
+                'rules' => 'image|max:500',
+                'disk' => 'public',
+                'path' => 'app',
+                'mutator' => function ($value, $key) {
+                    return null;
+                }
+            ]
+        ]);
+
+        Storage::fake();
+
+        $logo = UploadedFile::fake()->image('logo.jpg');
+
+        $appNameSetting = ['name' => 'logo', 'val' => null];
+
+        $this->assertDatabaseMissing('settings', $appNameSetting);
+
+        $this->post('settings', ['logo' => $logo])
+            ->assertRedirect()
+            ->assertSessionHas([
+                'status' => config('app_settings.submit_success_message', 'Settings Saved.')
+            ]);
+
+        $this->assertDatabaseHas('settings', $appNameSetting);
     }
 }

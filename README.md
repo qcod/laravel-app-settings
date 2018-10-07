@@ -158,7 +158,7 @@ Here are all the input types with attributes you can define, but you are free to
 
 > Every input must have a minimum of `name`, `type` & `label` attributes.
 
-##### text, number, email
+#### text, number, email
 These are literally the same things with just type change and `min` and `max` attribute for number type.
 
 ```php
@@ -209,7 +209,10 @@ These are literally the same things with just type change and `min` and `max` at
 ]
 ```
 
-##### textarea
+> 'data_type' can be used to cast the input data, it can be `array`, `int|integer|number`, `boolean|bool` and `string`. 
+In case you need something else you always use [Accessor](#accessor) to do it.
+
+#### textarea
 
 A textarea field is same as text but it has `rows` and `cols` properties.
 
@@ -224,7 +227,7 @@ A textarea field is same as text but it has `rows` and `cols` properties.
 ],
 ```
 
-##### select
+#### select
 
 A select box can be defined with options:
 
@@ -244,7 +247,7 @@ A select box can be defined with options:
 ],
 ```
 
-##### boolean
+#### boolean
 
 Boolean is just a radio input group with yes or no option, you can also change it to select by setting `options` array:
 
@@ -275,7 +278,7 @@ Boolean is just a radio input group with yes or no option, you can also change i
 ],
 ```
 
-##### checkbox
+#### checkbox
 
 Add a checkbox input
 
@@ -288,7 +291,7 @@ Add a checkbox input
 ]
 ```
 
-##### checkbox_group
+#### checkbox_group
 
 Add a group of checkboxes
 
@@ -304,6 +307,28 @@ Add a group of checkboxes
 ]
 ```
 
+### Not using Bootstrap 4
+
+If your app doesn't use Twitter Bootstrap 4 you can easily customize this in app_settings.php to follow your css library like Bulma, Foundatio CSS or any other custom solution:
+
+```php
+// Setting section class setting
+'section_class' => 'card mb-3',
+'section_heading_class' => 'card-header',
+'section_body_class' => 'card-body',
+
+// Input wrapper and group class setting
+'input_wrapper_class' => 'form-group',
+'input_class' => 'form-control',
+'input_error_class' => 'has-error',
+'input_invalid_class' => 'is-invalid',
+'input_hint_class' => 'form-text text-muted',
+'input_error_feedback_class' => 'text-danger',
+
+// Submit button
+'submit_btn_text' => 'Save Settings',
+'submit_success_message' => 'Settings has been saved.',
+``` 
 
 ### Customizing app settings views
 
@@ -438,29 +463,6 @@ class AppNameMutator {
     }
 ]; 
 ```
-
-### Not using Bootstrap 4
-
-If your app doesn't use Twitter Bootstrap 4 you can easily customize this in app_settings.php to follow your css library like Bulma, Foundatio CSS or any other custom solution:
-
-```php
-// Setting section class setting
-'section_class' => 'card mb-3',
-'section_heading_class' => 'card-header',
-'section_body_class' => 'card-body',
-
-// Input wrapper and group class setting
-'input_wrapper_class' => 'form-group',
-'input_class' => 'form-control',
-'input_error_class' => 'has-error',
-'input_invalid_class' => 'is-invalid',
-'input_hint_class' => 'form-text text-muted',
-'input_error_feedback_class' => 'text-danger',
-
-// Submit button
-'submit_btn_text' => 'Save Settings',
-'submit_success_message' => 'Settings has been saved.',
-``` 
 
 ### Config file
 

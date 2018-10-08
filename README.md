@@ -7,7 +7,7 @@
 
 Use `qcod/laravel-app-settings` to add settings manager with UI in your Laravel app. It stores settings in the database and by default uses Bootstrap 4 for styling but you can configure it to work with any css system.
 
-> All the settings saved in db is cached to improve performance by reducing sql query to zero. 
+> All the settings saved in db is cached to improve performance by reducing sql query to zero.
 
 ### Installation
 
@@ -17,7 +17,7 @@ Use `qcod/laravel-app-settings` to add settings manager with UI in your Laravel 
 $ composer require qcod/laravel-app-settings
 ```
 
-**2** - If you are installing on Laravel 5.4 or lower you will be needed to manually register Service Provider by adding it in `config/app.php` providers array and Facade in aliases arrays. 
+**2** - If you are installing on Laravel 5.4 or lower you will be needed to manually register Service Provider by adding it in `config/app.php` providers array and Facade in aliases arrays.
 
 ```php
 'providers' => [
@@ -44,9 +44,11 @@ It will create [`config/app_settings.php`](#config-file) with all the configurat
 **4** - Now run the migration by `php artisan migrate` to create the settings table.
 
 ### Getting Started
+
 First you need to define all the settings you want in our settings page. For example we will need these settings `app_name`, `from_email` & `from_name`. Lets define it in config:
 
 **config/app_settings.php**
+
 ```php
 <?php
 
@@ -54,7 +56,7 @@ First you need to define all the settings you want in our settings page. For exa
     //...
     // All the sections for the settings page
     'sections' => [
-        
+
         'app' => [
             'title' => 'General Settings',
             'descriptions' => 'Application general settings.', // (optional)
@@ -79,7 +81,7 @@ First you need to define all the settings you want in our settings page. For exa
             'title' => 'Email Settings',
             'descriptions' => 'How app email will be sent.',
             'icon' => 'fa fa-email',
-            
+
             'inputs' => [
                 [
                     'name' => 'from_email',
@@ -135,9 +137,10 @@ If your app needs different url to access the settings page you can change from 
 // Setting page url, will be used for get and post request
 'url' => 'app-settings',
 // http://yourapp.com/app-settings
-``` 
+```
 
 ### Use without UI
+
 If you want to just store the settings into db and don't want the UI to manage settings? for that simply use the helper function `setting()` or `AppSetting::get('app_name')` to store and retrieve settings from db. For this you don't need to define any section and inputs in `app_settings.php` config.
 
 > Make sure to set `'remove_abandoned_settings' => false` in **config/app_settings.php** otherwise any undefined input fields will be removed on save from UI.
@@ -150,7 +153,43 @@ setting()->get($key, $defautl = null);
 setting()->set($key, $value);
 setting()->has($key);
 setting()->remove($key);
-``` 
+```
+
+### Access setting in JavaScript
+
+Many a times these settings needs be accessed from your JavaScript. One way you can do it by just sticking it in your layout blade template as global variable.
+
+```blade
+// layout.blade.php
+<head>
+<title>@yield('title', 'Settings')</title>
+<script>
+    window.App = {!! json_encode([
+            'settings' => \setting()->all(),
+            'anyOtherThings' => []
+    ]); !!}
+</script>
+</head>
+```
+
+With this you will be able to access defined settings in your Vue Component or any JavaScript code.
+
+```js
+App.settings.app_name;
+
+// or define a computed property on Component root level
+const app = new Vue({
+  el: "#app",
+  computed: {
+    myApp() {
+      return window.App;
+    }
+  }
+});
+
+// access it like this
+myApp.settings.app_name;
+```
 
 ### Input types
 
@@ -159,6 +198,7 @@ Here are all the input types with attributes you can define, but you are free to
 > Every input must have a minimum of `name`, `type` & `label` attributes.
 
 #### text, number, email
+
 These are literally the same things with just type change and `min` and `max` attribute for number type.
 
 ```php
@@ -209,8 +249,8 @@ These are literally the same things with just type change and `min` and `max` at
 ]
 ```
 
-> 'data_type' can be used to cast the input data, it can be `array`, `int|integer|number`, `boolean|bool` and `string`. 
-In case you need something else you always use [Accessor](#accessor) to do it.
+> 'data_type' can be used to cast the input data, it can be `array`, `int|integer|number`, `boolean|bool` and `string`.
+> In case you need something else you always use [Accessor](#accessor) to do it.
 
 #### textarea
 
@@ -260,8 +300,8 @@ Boolean is just a radio input group with yes or no option, you can also change i
     'value' => false,
     'class' => 'w-auto',
     // optional fields
-    'true_value' => 'on', 
-    'false_value' => 'off', 
+    'true_value' => 'on',
+    'false_value' => 'off',
 ],
 // as select options
 [
@@ -274,7 +314,7 @@ Boolean is just a radio input group with yes or no option, you can also change i
     'options' => [
         '1' => 'Yes',
         '0' => 'No',
-    ], 
+    ],
 ],
 ```
 
@@ -315,7 +355,7 @@ If you define `mutator` on input then its up to you to handle the uploading, you
 
 > . You don't need to use mutator in most of the cases.
 
-You can define `rules` to validate incoming files, either it can be image or any document. 
+You can define `rules` to validate incoming files, either it can be image or any document.
 
 ```php
 [
@@ -330,33 +370,32 @@ You can define `rules` to validate incoming files, either it can be image or any
     'preview_style' => 'height:40px' // style for preview
 ]
 
-// handle uploads by yourself using `mutator` 
+// handle uploads by yourself using `mutator`
 [
     'name' => 'logo',
     'type' => 'image',
     'label' => 'Upload logo',
     'hint' => 'Must be an image and cropped in desired size',
     'rules' => 'image|max:500',
-    
+
     // a simple mutator
     'mutator' => function($value, $key) {
         // handle image do some reszing etc
         $image = Intervention\Image::make(request()->file($key));
-        
+
         $path = Storage::disk('public')->put(
             $imagePath,
-            (string) $image->encode(null, $imageQuality), 
+            (string) $image->encode(null, $imageQuality),
             'public'
         );
-        
-        // delete old image etc 
+
+        // delete old image etc
         Storage::disk('public')->delete(\setting($key));
-        
+
         // finally return new path to be stored in db
         return $path;
     }
 ]
-
 ```
 
 ### Not using Bootstrap 4
@@ -380,7 +419,7 @@ If your app doesn't use Twitter Bootstrap 4 you can easily customize this in app
 // Submit button
 'submit_btn_text' => 'Save Settings',
 'submit_success_message' => 'Settings has been saved.',
-``` 
+```
 
 ### Customizing app settings views
 
@@ -422,11 +461,11 @@ Next you will be required to publish the views and add a blade view inside `reso
     </div>
 </div>
 @endcomponent
-``` 
+```
 
 `@component('app_settings::input_group', compact('field'))` will add the `label` and `hint` with `error` feedback text.
 
-To use this custom input you should define it `in app_settings.php` something like this: 
+To use this custom input you should define it `in app_settings.php` something like this:
 
 ```php
 <?php
@@ -441,8 +480,8 @@ To use this custom input you should define it `in app_settings.php` something li
             'from' => request('from_registration_allowed'),
             'to' => request('to_registration_allowed'),
         ];
-        
-        return json_encode($rangeValues);      
+
+        return json_encode($rangeValues);
     },
     'accessor' => function($value, $key) {
         return is_null($value) ? ['from' => '', 'to' => ''] : json_decode($value, true);
@@ -483,7 +522,7 @@ class AppNameAccessor {
     'accessor' => function($value, $key) {
         return ucfirst($value);
     }
-]; 
+];
 ```
 
 #### Mutator
@@ -513,7 +552,7 @@ class AppNameMutator {
     'mutator' => function($value, $key) {
         return ucfirst($value). ' Inc.';
     }
-]; 
+];
 ```
 
 ### Config file
@@ -610,6 +649,7 @@ return [
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
 ### Testing
+
 The package contains some integration/smoke tests, set up with Orchestra. The tests can be run via phpunit.
 
 ```bash
@@ -617,6 +657,7 @@ $ composer test
 ```
 
 ### Contributing
+
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ### Security
@@ -624,9 +665,11 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 If you discover any security related issues, please email saquibweb@gmail.com instead of using the issue tracker.
 
 ### Credits
+
 - [Mohd Saqueib Ansari](https://github.com/saqueib)
 
 ### About QCode.in
+
 QCode.in (https://www.qcode.in) is blog by [Saqueib](https://github.com/saqueib) which covers All about Full Stack Web Development.
 
 ### License

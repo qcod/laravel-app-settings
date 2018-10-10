@@ -141,9 +141,11 @@ If your app needs different url to access the settings page you can change from 
 
 ### Use without UI
 
-If you want to just store the settings into db and don't want the UI to manage settings? for that simply use the helper function `setting()` or `AppSetting::get('app_name')` to store and retrieve settings from db. For this you don't need to define any section and inputs in `app_settings.php` config.
+If you want to just store the key-value pair into DB and don't want the UI to manage settings for example in API? You should use [qcod/laravel-settings package](https://github.com/qcod/laravel-settings) instead. This package uses it under the hood to persist the settings.
 
-> Make sure to set `'remove_abandoned_settings' => false` in **config/app_settings.php** otherwise any undefined input fields will be removed on save from UI.
+If you want to use both UI and settings as key-value pair in DB alongside, for that simply use the helper function `setting()` or `AppSetting::get('app_name')` to store and retrieve settings from DB. For this, you don't need to define any section and inputs in `app_settings.php` config.
+
+When using both UI and settings as a key-value pair, make sure to set `'remove_abandoned_settings' => false` in **config/app_settings.php** otherwise any undefined input fields will be removed when you save settings from UI.
 
 Here are list of available methods:
 

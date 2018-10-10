@@ -42,6 +42,9 @@ class AppSettingsServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // register setting service provider
+        $this->app->register('QCod\Settings\SettingsServiceProvider');
+
         // bind app settings
         $this->app->singleton('app-settings', function ($app) {
             return new AppSettings($app->make('QCod\Settings\Setting\SettingStorage'));

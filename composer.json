@@ -49,7 +49,7 @@
         "QCod\\AppSettings\\AppSettingsServiceProvider"
       ],
       "aliases": {
-        "Setting": "QCod\\AppSettings\\Facade"
+        "AppSettings": "QCod\\AppSettings\\Facade"
       }
     }
   },

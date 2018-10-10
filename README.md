@@ -22,7 +22,7 @@ $ composer require qcod/laravel-app-settings
 ```php
 'providers' => [
     //...
-    QCod\AppSettings\AppSettingsServiceProvider::class
+    QCod\AppSettings\AppSettingsServiceProvider::class,
 ]
 
 'aliases' => [

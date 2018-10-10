@@ -32,8 +32,6 @@ class AppSettingsServiceProvider extends ServiceProvider
             __DIR__ . '/config/app_settings.php' => config_path('app_settings.php'),
         ], 'config');
 
-        $this->loadMigrationsFrom(__DIR__ . '/migrations');
-
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
     }
 
@@ -44,15 +42,9 @@ class AppSettingsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // bind storage into container
-        $this->app->bind(
-            'QCod\AppSettings\Setting\SettingStorage',
-            'QCod\AppSettings\Setting\SettingEloquentStorage'
-        );
-
         // bind app settings
         $this->app->singleton('app-settings', function ($app) {
-            return new AppSettings($app->make('QCod\AppSettings\Setting\SettingStorage'));
+            return new AppSettings($app->make('QCod\Settings\Setting\SettingStorage'));
         });
     }
 }

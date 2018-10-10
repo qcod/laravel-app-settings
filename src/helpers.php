@@ -1,9 +1,9 @@
 <?php
 
-if (!function_exists('setting')) {
+if (! function_exists('setting')) {
 
     /**
-     * Get app setting stored in db
+     * Get app setting stored in db.
      *
      * @param $key
      * @param null $default

@@ -4,6 +4,7 @@ namespace QCod\AppSettings\Setting;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use QCod\Settings\Setting\SettingStorage;
 
 class AppSettings
 {
@@ -22,6 +23,12 @@ class AppSettings
         $this->settingStorage = $settingStorage;
     }
 
+    /**
+     * Get al the settings from storage
+     *
+     * @param bool $fresh
+     * @return \Illuminate\Support\Collection
+     */
     public function all($fresh = false)
     {
         return $this->settingStorage->all($fresh);
@@ -240,6 +247,8 @@ class AppSettings
     }
 
     /**
+     * Cast value to array
+     *
      * @param $value
      * @param $out
      * @return array|mixed|string
@@ -254,7 +263,7 @@ class AppSettings
     }
 
     /**
-     * Upload file
+     * Upload a file
      *
      * @param $setting array
      * @param $request Request
@@ -291,6 +300,8 @@ class AppSettings
     }
 
     /**
+     * Delete a file
+     *
      * @param $oldFile
      * @param $disk
      */

@@ -47,7 +47,6 @@ class SettingUITest extends TestCase
         config(['app_settings.section_body_class' => 'c-card-body']);
 
         // assert
-        $this->withoutExceptionHandling();
         $this->get('/settings')
             ->assertStatus(200)
             ->assertSee('class="c-card')
@@ -334,6 +333,7 @@ class SettingUITest extends TestCase
     {
         config(['app_settings.input_wrapper_class' => 'new-input-wrapper']);
 
+        $this->withoutExceptionHandling();
         // assert
         $this->get('/settings')
             ->assertStatus(200)

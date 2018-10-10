@@ -3,8 +3,8 @@
 namespace QCod\AppSettings\Tests\Feature;
 
 use Illuminate\Http\UploadedFile;
+use QCod\Settings\Setting\Setting;
 use QCod\AppSettings\Tests\TestCase;
-use QCod\AppSettings\Setting\Setting;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

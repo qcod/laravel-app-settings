@@ -90,7 +90,4 @@ return [
 
     // Controller to show and handle save setting
     'controller' => '\QCod\AppSettings\Controllers\AppSettingController',
-
-    // Eloquent model for setting
-    'model' => '\QCod\AppSettings\Setting\Setting',
 ];

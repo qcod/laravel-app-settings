@@ -303,7 +303,7 @@ class AppSettingsTest extends TestCase
      */
     public function it_can_access_settings_via_facade()
     {
-        \AppSettings::set('app_maker', 'apple');
-        $this->assertEquals('apple', \AppSettings::get('app_maker'));
+        \Setting::set('app_maker', 'apple');
+        $this->assertEquals('apple', \Setting::get('app_maker'));
     }
 }

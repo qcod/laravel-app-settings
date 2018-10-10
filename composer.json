@@ -47,7 +47,10 @@
     "laravel": {
       "providers": [
         "QCod\\AppSettings\\AppSettingsServiceProvider"
-      ]
+      ],
+      "aliases": {
+        "Setting": "QCod\\AppSettings\\Facade"
+      }
     }
   },
   "scripts": {

@@ -639,10 +639,7 @@ return [
     'remove_abandoned_settings' => false,
 
     // Controller to show and handle save setting
-    'controller' => '\QCod\AppSettings\Controllers\AppSettingController',
-
-    // Eloquent model for setting
-    'model' => '\QCod\AppSettings\Setting\Setting',
+    'controller' => '\QCod\AppSettings\Controllers\AppSettingController'
 ];
 ```
 

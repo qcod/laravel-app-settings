@@ -7,7 +7,7 @@
 
 Use `qcod/laravel-app-settings` to add settings manager with UI in your Laravel app. It stores settings in the database and by default uses Bootstrap 4 for styling but you can configure it to work with any css system.
 
-> All the settings saved in db is cached to improve performance by reducing sql query to zero.
+> All the settings saved in db are cached to improve performance by reducing sql query to zero.
 
 ### Installation
 
@@ -555,6 +555,46 @@ class AppNameMutator {
         return ucfirst($value). ' Inc.';
     }
 ];
+```
+
+### Using different Controller
+In order to use your controller to show and store settings you can do it by changing the `app_settings.controller`:
+
+```php
+// change the controller in config/app_settings.php at the bottom
+
+// Controller to show and handle save setting
+'controller' => '\App\Http\Controllers\SettingsController',
+```
+
+Make sure you have `index()` and `store(Request $request)` method in your controller.
+
+```php
+// Controller
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use QCod\AppSettings\SavesSettings;
+use App\Http\Controllers\Controller;
+
+class SettingsController extends Controller 
+{ 
+    use SavesSettings;
+    
+    // you can override following methods from trait
+    
+    // to display the settings view
+    public function index()
+    {
+       return 'I am settings page'.
+    }
+    
+    // to store settings changes
+    public function store(Request $request)
+    {
+       return $request->all().
+    }
+}
 ```
 
 ### Config file

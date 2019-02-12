@@ -289,6 +289,24 @@ A select box can be defined with options:
 ],
 ```
 
+### Select options from database
+
+You can also populate select options dynamically. In most cases it will be coming from the database, just use a closure for this:
+
+```php
+[
+    'type' => 'select',
+    'name' => 'city',
+    'label' => 'City',
+    'rules' => 'required',
+    'options' => function() {
+        return App\City::pluck('name', 'id')->toArray()
+    }
+],
+```
+
+> Note: You can use a closure (anonymous function) for most of the fields on inputs if you need to resolve field value dynamically.
+
 #### boolean
 
 Boolean is just a radio input group with yes or no option, you can also change it to select by setting `options` array:

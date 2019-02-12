@@ -124,6 +124,29 @@ class AppSettings
     }
 
     /**
+     * Load and resolve closers in config
+     *
+     * @param $config
+     * @return array
+     */
+    public function loadConfig($config)
+    {
+        // resolve any callback for inputs
+        array_walk_recursive($config, function (&$value, $key) {
+            if (!in_array($key, ['mutator', 'accessor', 'rules']) && is_callable($value)) {
+                // skip any string which dont look like namesapce
+                if (is_string($value) && str_contains($value, '\\') == false) {
+                    return;
+                }
+
+                $value = $this->runCallback($value, $key, '');
+            }
+        });
+
+        return $config;
+    }
+
+    /**
      * Get the settings UI sections as collection
      *
      * @return \Illuminate\Support\Collection
@@ -211,7 +234,7 @@ class AppSettings
      * @param $callback
      * @param $name
      * @param $value
-     * @return string
+     * @return string|mixed
      */
     protected function runCallback($callback, $name, $value)
     {

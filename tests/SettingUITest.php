@@ -2,6 +2,7 @@
 
 namespace QCod\AppSettings\Tests\Feature;
 
+use Illuminate\Support\Facades\DB;
 use QCod\AppSettings\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -171,6 +172,31 @@ class SettingUITest extends TestCase
             ->assertStatus(200)
             ->assertSee('select')
             ->assertSee('IN');
+    }
+
+    /**
+     * it can populate options from database dynamically
+     *
+     * @test
+     */
+    public function it_can_populate_options_from_database_dynamically()
+    {
+        $this->configureInputs([
+            [
+                'name' => 'app_migrations',
+                'label' => 'App Migration',
+                'type' => 'select',
+                'options' => function () {
+                    return DB::table('migrations')->pluck('migration', 'id')->toArray();
+                }
+            ]
+        ]);
+
+        // assert
+        $this->get('/settings')
+            ->assertStatus(200)
+            ->assertSee('select')
+            ->assertSee('2014_10_00_000000_create_settings_table');
     }
 
     /**

@@ -14,10 +14,11 @@ trait SavesSettings
      * Display the settings page
      *
      * @return \Illuminate\View\View
+     * @param AppSettings $appSettings
      */
-    public function index()
+    public function index(AppSettings $appSettings)
     {
-        $settingsUI = config('app_settings', []);
+        $settingsUI = $appSettings->loadConfig(config('app_settings', []));
         $settingViewName = config('app_settings.setting_page_view');
 
         return view($settingViewName, compact('settingsUI'));
@@ -42,5 +43,10 @@ trait SavesSettings
             ->with([
                 'status' => config('app_settings.submit_success_message', 'Settings Saved.')
             ]);
+    }
+
+    protected function resolveClosers()
+    {
+
     }
 }

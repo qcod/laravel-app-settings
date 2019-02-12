@@ -44,9 +44,4 @@ trait SavesSettings
                 'status' => config('app_settings.submit_success_message', 'Settings Saved.')
             ]);
     }
-
-    protected function resolveClosers()
-    {
-
-    }
 }

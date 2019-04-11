@@ -22,6 +22,11 @@ trait SavesSettings
         $settingViewName = config('app_settings.setting_page_view');
 
         $settingsPage = preg_replace("/[^A-Za-z0-9 ]/", '', $page);
+
+        if ( !is_array( config('app_settings.sections.'.$settingsPage) ) ) {
+            $settingsPage = config('app_settings.default_page');
+        }
+
         return view($settingViewName, [
             'settingsUI' => $settingsUI,
             'settingsPage' => $settingsPage,

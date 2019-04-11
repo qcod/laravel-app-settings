@@ -9,7 +9,8 @@ return [
     ],
 
     // Setting page url, will be used for get and post request
-    'url' => 'settings/general',
+    'url' => '/settings',
+    'default_page' => 'email',
 
     // Any middleware you want to run on above route
     'middleware' => [],

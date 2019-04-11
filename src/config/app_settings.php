@@ -59,7 +59,7 @@ return [
     ],
 
     // Setting page url, will be used for get and post request
-    'url' => 'settings',
+    'url' => 'settings/general',
 
     // Any middleware you want to run on above route
     'middleware' => [],

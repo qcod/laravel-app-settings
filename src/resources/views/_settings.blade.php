@@ -6,10 +6,10 @@
 
             <form method="post" action="{{ config('app_settings.url') }}" class="form-horizontal mb-3" enctype="multipart/form-data" role="form">
                 {!! csrf_field() !!}
-
+                <input type='hidden' name='page' value='{{$settingsPage}}'>
                 @if( isset($settingsUI) && count($settingsUI) )
 
-                    @foreach(array_get($settingsUI, 'sections', []) as $section => $fields)
+                    @foreach(array_get($settingsUI, 'sections'. $settingsPage, []) as $section => $fields)
                         @component('app_settings::section', compact('fields'))
                             <div class="{{ array_get($fields, 'section_body_class', config('app_settings.section_body_class', 'card-body')) }}">
                                 @foreach(array_get($fields, 'inputs', []) as $field)

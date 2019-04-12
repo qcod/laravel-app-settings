@@ -39,6 +39,13 @@ return [
     // Remove any setting which declaration removed later from sections
     'remove_abandoned_settings' => false,
 
+    // when the setting is not found, can we try to get the config setting for this key
+    'allow_passthrough_config' => true,
+
+    // Should we throw and exception if we cannot find the setting after we checked the config files
+    // only in addition to 'allow_passthrough_config'
+    'exception_on_nodefined_config' => true,
+
     // Controller to show and handle save setting
     'controller' => '\QCod\AppSettings\Controllers\AppSettingController',
 ];

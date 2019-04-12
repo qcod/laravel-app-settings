@@ -8,12 +8,12 @@ return [
 
         'inputs' => [
             [
-                'name' => 'app_name', // unique key for setting
+                'name' => 'app.name', // unique key for setting
                 'type' => 'text', // type of input can be text, number, textarea, select, boolean, checkbox etc.
                 'view' => 'text', // the name of the view blade file , if left out, the type is the name of the view
                 'label' => 'App Name', // label for input
                 // optional properties
-                'placeholder' => 'Application Name', // placeholder for input
+                'placeholder' => config('app.name'), // placeholder for input
                 'class' => 'form-control', // override global input_class
                 'style' => '', // any inline styles
                 'rules' => 'required|min:2|max:20', // validation rules for this input

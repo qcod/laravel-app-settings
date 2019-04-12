@@ -20,7 +20,11 @@
                                             You can create a <code>fields/{{ $field['type'] }}.balde.php</code> to render this input however you want.
                                         </div>
                                     @endif
-                                    @includeIf('app_settings::fields.' . $field['type'] )
+                                    @if (isset($field['view']))
+                                        @includeIf('app_settings::fields.' . $field['view'])
+                                    @else
+                                        @includeIf('app_settings::fields.' . $field['type'])
+                                    @endif
                                 @endforeach
                             </div>
                         @endcomponent

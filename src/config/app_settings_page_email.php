@@ -10,6 +10,7 @@ return [
             [
                 'name' => 'from_email',
                 'type' => 'email',
+                'view' => 'email',          // the name of the view, if left out, the type is the name of the view
                 'label' => 'From Email',
                 'placeholder' => 'Application from email',
                 'rules' => 'required|email',

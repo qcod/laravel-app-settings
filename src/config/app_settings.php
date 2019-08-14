@@ -90,4 +90,10 @@ return [
 
     // Controller to show and handle save setting
     'controller' => '\QCod\AppSettings\Controllers\AppSettingController',
+
+    // settings group
+    'setting_group' => function() {
+        // return 'user_'.auth()->id();
+        return 'default';
+    }
 ];

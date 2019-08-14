@@ -76,6 +76,38 @@ class SettingsTest extends TestCase
     }
 
     /**
+     * it use group defined in settings config to store the settings
+     *
+     * @test
+     */
+    public function it_use_group_defined_in_settings_config_to_store_the_settings()
+    {
+        config()->set('app_settings.setting_group', function () {
+            return 'test_1';
+        });
+
+        $this->configureInputs([
+            [
+                'name' => 'app_name',
+                'type' => 'text',
+                'rules' => 'required'
+            ]
+        ]);
+
+        $appNameSetting = ['name' => 'app_name', 'val' => 'QCode App'];
+
+        $this->assertDatabaseMissing('settings', $appNameSetting);
+
+        $this->post('settings', ['app_name' => 'QCode App'])
+            ->assertRedirect()
+            ->assertSessionHas([
+                'status' => config('app_settings.submit_success_message', 'Settings Saved.')
+            ]);
+
+        $this->assertDatabaseHas('settings', $appNameSetting + ['group' => 'test_1']);
+    }
+
+    /**
      * it dont removes abandoned settings if its set in config
      *
      * @test

@@ -20,7 +20,14 @@ class AppSettings
      */
     public function __construct(SettingStorage $settingStorage)
     {
-        $this->settingStorage = $settingStorage;
+        $groupName = $this->getSettingsGroupName();
+
+        if( $groupName && is_callable($groupName) ) {
+            $groupName = $this->runCallback($groupName, 'setting_group', null);
+            $this->settingStorage = $settingStorage->group($groupName);
+        } else {
+            $this->settingStorage = $settingStorage;
+        }
     }
 
     /**
@@ -333,5 +340,15 @@ class AppSettings
         if ($oldFile && Storage::disk($disk)->exists($oldFile)) {
             Storage::disk($disk)->delete($oldFile);
         }
+    }
+
+    /**
+     * Get the name of settings group
+     *
+     * @return string
+     */
+    protected function getSettingsGroupName()
+    {
+        return config('app_settings.setting_group');
     }
 }

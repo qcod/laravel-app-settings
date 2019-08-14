@@ -139,6 +139,25 @@ If your app needs different url to access the settings page you can change from 
 // http://yourapp.com/app-settings
 ```
 
+### Use Group Setting
+
+Many time you want to store settings in a group. With version `1.1` you can define a group name from your `config/app_settings.php`. You have a closer to return the name of group as string
+
+```php
+return [
+
+    // All the sections for the settings page
+    'sections' => [...]
+    
+    ...
+    // settings group
+    'setting_group' => function() {
+        return 'user_'.auth()->id();
+    }
+```
+
+In this case you can have different settings for each user.
+
 ### Use without UI
 
 If you want to just store the key-value pair into DB and don't want the UI to manage settings for example in API? You should use [qcod/laravel-settings package](https://github.com/qcod/laravel-settings) instead. This package uses it under the hood to persist the settings.

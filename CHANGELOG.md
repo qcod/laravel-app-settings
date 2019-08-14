@@ -2,6 +2,9 @@
 
 All notable changes to `qcod/laravel-app-settings` will be documented in this file
 
+## 1.1.0 - 2019-08-14
+
+- Group Settings by name
 
 ## 1.0.2 - 2016-10-10
 

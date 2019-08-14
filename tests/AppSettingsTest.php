@@ -306,4 +306,33 @@ class AppSettingsTest extends TestCase
         \AppSettings::set('app_maker', 'apple');
         $this->assertEquals('apple', \AppSettings::get('app_maker'));
     }
+
+    /**
+     * it can set the group defined in config for settings
+     *
+     * @test
+     */
+    public function it_can_set_the_group_defined_in_config_for_settings()
+    {
+        config()->set('app_settings.setting_group', function () {
+            return 'test_1';
+        });
+
+        $this->configureInputs([
+            [
+                'name' => 'app_name',
+                'type' => 'text'
+            ]
+        ]);
+
+        setting()->set('app_name', 'Cool App');
+
+        $this->assertEquals('Cool App', setting('app_name'));
+
+        $this->assertDatabaseHas('settings', [
+            'name' => 'app_name',
+            'val' => 'Cool App',
+            'group' => 'test_1'
+        ]);
+    }
 }

@@ -16,12 +16,21 @@ trait SavesSettings
      * @return \Illuminate\View\View
      * @param AppSettings $appSettings
      */
-    public function index(AppSettings $appSettings)
+    public function index(AppSettings $appSettings,  string $page)
     {
         $settingsUI = $appSettings->loadConfig(config('app_settings', []));
         $settingViewName = config('app_settings.setting_page_view');
 
-        return view($settingViewName, compact('settingsUI'));
+        $settingsPage = preg_replace("/[^A-Za-z0-9 ]/", '', $page);
+
+        if ( !is_array( config('app_settings.sections.'.$settingsPage) ) ) {
+            $settingsPage = config('app_settings.default_page');
+        }
+
+        return view($settingViewName, [
+            'settingsUI' => $settingsUI,
+            'settingsPage' => $settingsPage,
+        ]);
     }
 
     /**
@@ -39,7 +48,7 @@ trait SavesSettings
         // save settings
         $appSettings->save($request);
 
-        return redirect(config('app_settings.url', '/'))
+        return redirect()->route('settings.index', config('app_settings.default_page'))
             ->with([
                 'status' => config('app_settings.submit_success_message', 'Settings Saved.')
             ]);

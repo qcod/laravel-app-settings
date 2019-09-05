@@ -109,8 +109,10 @@ class AppSettings
      */
     public function save($request)
     {
+        $settingsPage = preg_replace("/[^A-Za-z0-9 ]/", '', $request->page);
+
         // get all defined settings from config
-        $allDefinedSettings = $this->getAllSettingFields();
+        $allDefinedSettings = $this->getAllSettingFields($settingsPage);
 
         // set all the fields with updated values
         $allDefinedSettings->each(function ($setting) use ($request) {
@@ -158,19 +160,19 @@ class AppSettings
      *
      * @return \Illuminate\Support\Collection
      */
-    protected function getSettingUISections()
+    protected function getSettingUISections(string $settingsPage)
     {
-        return collect(config('app_settings.sections', []));
+        return collect(config('app_settings.sections.'.$settingsPage , []));
     }
 
     /**
      * Get all the setting fields defined from all sections
-     *
+     * @param $settingsPage string : the name of the page of settings to use
      * @return \Illuminate\Support\Collection
      */
-    public function getAllSettingFields()
+    public function getAllSettingFields(string $settingsPage = '' )
     {
-        return $this->getSettingUISections()->flatMap(function ($field) {
+        return $this->getSettingUISections($settingsPage)->flatMap(function ($field) {
             return array_get($field, 'inputs', []);
         });
     }

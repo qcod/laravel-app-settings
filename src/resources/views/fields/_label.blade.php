@@ -1,3 +1,3 @@
-@if( $label = array_get($field, 'label') )
-    <label for="{{ array_get($field, 'name') }}">{{ $label }}</label>
+@if( $label = Arr::get($field, 'label') )
+    <label for="{{ Arr::get($field, 'name') }}">{{ $label }}</label>
 @endif

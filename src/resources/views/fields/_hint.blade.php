@@ -1,5 +1,5 @@
-@if($hint = array_get($field, 'hint'))
-    <small class="{{ array_get($field, 'input_hint_class', config('app_settings.input_hint_class', '')) }}">
+@if($hint = Arr::get($field, 'hint'))
+    <small class="{{ Arr::get($field, 'input_hint_class', config('app_settings.input_hint_class', '')) }}">
        {{ $hint }}
     </small>
 @endif

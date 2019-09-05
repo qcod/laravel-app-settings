@@ -1,5 +1,5 @@
 @component('app_settings::input_group', compact('field'))
-    @if( count(array_get($field, 'options', [])) )
+    @if( count(Arr::get($field, 'options', [])) )
         @include('app_settings::fields._select')
     @else
         <br>

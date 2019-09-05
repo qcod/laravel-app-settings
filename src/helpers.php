@@ -11,14 +11,16 @@ if (! function_exists('setting')) {
      */
     function setting($key = null, $default = null)
     {
+        $settings = app()->make('app-settings');
+
         if (is_null($key)) {
-            return app()->make('app-settings');
+            return $settings;
         }
 
         if (is_array($key)) {
-            return app()->make('app-settings')->set($key);
+            return $settings->set($key);
         }
 
-        return app()->make('app-settings')->get($key, value($default));
+        return $settings->get($key, value($default));
     }
 }

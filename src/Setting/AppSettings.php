@@ -2,6 +2,8 @@
 
 namespace QCod\AppSettings\Setting;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use QCod\Settings\Setting\SettingStorage;
@@ -55,14 +57,14 @@ class AppSettings
         // get the setting and fallback to default value from config
         $value = $this->settingStorage->get(
             $name,
-            array_get($settingField, 'value', $default)
+            Arr::get($settingField, 'value', $default)
         );
 
         // cast the value
-        $outValue = $this->castValue(array_get($settingField, 'data_type'), $value, true);
+        $outValue = $this->castValue(Arr::get($settingField, 'data_type'), $value, true);
 
         // check for accessor to run
-        if ($accessor = array_get($settingField, 'accessor')) {
+        if ($accessor = Arr::get($settingField, 'accessor')) {
             $outValue = $this->runCallback($accessor, $name, $value);
         }
 
@@ -79,12 +81,12 @@ class AppSettings
     public function set($name, $value)
     {
         $settingField = $this->getSettingField($name);
-        $dataType = array_get($settingField, 'data_type');
+        $dataType = Arr::get($settingField, 'data_type');
 
         $val = $this->castValue($dataType, $value);
 
         // check for mutator to run
-        if ($mutator = array_get($settingField, 'mutator')) {
+        if ($mutator = Arr::get($settingField, 'mutator')) {
             $val = $this->runCallback($mutator, $name, $value);
         }
 
@@ -142,7 +144,7 @@ class AppSettings
         array_walk_recursive($config, function (&$value, $key) {
             if (!in_array($key, ['mutator', 'accessor', 'rules']) && is_callable($value)) {
                 // skip any string which dont look like namesapce
-                if (is_string($value) && str_contains($value, '\\') == false) {
+                if (is_string($value) && Str::contains($value, '\\') == false) {
                     return;
                 }
 
@@ -171,7 +173,7 @@ class AppSettings
     public function getAllSettingFields()
     {
         return $this->getSettingUISections()->flatMap(function ($field) {
-            return array_get($field, 'inputs', []);
+            return Arr::get($field, 'inputs', []);
         });
     }
 
@@ -185,7 +187,7 @@ class AppSettings
     {
         return $this->getAllSettingFields()
             ->first(function ($field) use ($name) {
-                return array_get($field, 'name') == $name;
+                return Arr::get($field, 'name') == $name;
             }, []);
     }
 
@@ -301,11 +303,11 @@ class AppSettings
      */
     private function uploadFile($setting, $request)
     {
-        $settingName = array_get($setting, 'name');
+        $settingName = Arr::get($setting, 'name');
 
         // get the disk and path to upload
-        $disk = array_get($setting, 'disk', 'public');
-        $path = array_get($setting, 'path', '/');
+        $disk = Arr::get($setting, 'disk', 'public');
+        $path = Arr::get($setting, 'path', '/');
 
         $uploadedPath = null;
         $oldFile = $this->get($settingName);

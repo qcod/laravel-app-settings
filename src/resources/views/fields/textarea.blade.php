@@ -2,18 +2,18 @@
 
     <textarea type="{{ $field['type'] }}"
               name="{{ $field['name'] }}"
-              @if( $placeholder = array_get($field, 'placeholder') )
+              @if( $placeholder = Arr::get($field, 'placeholder') )
               placeholder="{{ $placeholder }}"
               @endif
-              @if( $rows = array_get($field, 'rows') )
+              @if( $rows = Arr::get($field, 'rows') )
               rows="{{ $rows }}"
               @endif
-              @if( $cols = array_get($field, 'cols') )
+              @if( $cols = Arr::get($field, 'cols') )
               cols="{{ $cols }}"
               @endif
-              class="{{ array_get( $field, 'class', config('app_settings.input_class', 'form-control')) }}"
-              @if( $styleAttr = array_get($field, 'style')) style="{{ $styleAttr }}" @endif
-              id="{{ array_get($field, 'name') }}"
+              class="{{ Arr::get( $field, 'class', config('app_settings.input_class', 'form-control')) }}"
+              @if( $styleAttr = Arr::get($field, 'style')) style="{{ $styleAttr }}" @endif
+              id="{{ Arr::get($field, 'name') }}"
     >{{ old($field['name'], \setting($field['name'])) }}</textarea>
 
 @endcomponent

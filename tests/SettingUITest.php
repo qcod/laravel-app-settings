@@ -50,9 +50,9 @@ class SettingUITest extends TestCase
         // assert
         $this->get('/settings')
             ->assertStatus(200)
-            ->assertSee('class="c-card')
-            ->assertSee('class="c-card-header')
-            ->assertSee('class="c-card-body');
+            ->assertSee('class="c-card', false)
+            ->assertSee('class="c-card-header', false)
+            ->assertSee('class="c-card-body', false);
     }
 
     /**
@@ -97,7 +97,7 @@ class SettingUITest extends TestCase
             ->assertSee('From Email')
             ->assertSee('From Email of app')
             ->assertSee('You can from email of app')
-            ->assertSee('type="text"');
+            ->assertSee('type="text"', false);
     }
 
     /**
@@ -123,7 +123,7 @@ class SettingUITest extends TestCase
         // assert
         $this->get('/settings')
             ->assertStatus(200)
-            ->assertSee('type="email"');
+            ->assertSee('type="email"', false);
     }
 
     /**
@@ -146,7 +146,7 @@ class SettingUITest extends TestCase
         // assert
         $this->get('/settings')
             ->assertStatus(200)
-            ->assertSee('type="number"');
+            ->assertSee('type="number"', false);
     }
 
     /**
@@ -274,7 +274,7 @@ class SettingUITest extends TestCase
         // assert
         $this->get('/settings')
             ->assertStatus(200)
-            ->assertSee('type="radio"')
+            ->assertSee('type="radio"', false)
             ->assertSee('Maintenance');
 
 
@@ -323,7 +323,7 @@ class SettingUITest extends TestCase
         // assert
         $this->get('/settings')
             ->assertStatus(200)
-            ->assertSee('type="file"');
+            ->assertSee('type="file"', false);
     }
 
     /**
@@ -347,7 +347,7 @@ class SettingUITest extends TestCase
         // assert
         $this->get('/settings')
             ->assertStatus(200)
-            ->assertSee('type="file"');
+            ->assertSee('type="file"', false);
     }
     
     /**
@@ -363,7 +363,7 @@ class SettingUITest extends TestCase
         // assert
         $this->get('/settings')
             ->assertStatus(200)
-            ->assertSee('class="new-input-wrapper')
+            ->assertSee('class="new-input-wrapper', false)
             ->assertDontSee('class="input-group');
     }
 

@@ -288,6 +288,18 @@ A textarea field is same as text but it has `rows` and `cols` properties.
 ],
 ```
 
+#### CKEditor
+
+A CKEditor is a WYSIWYG textarea field that allows you to edit & store HTML .
+
+```php
+[
+    'type' => 'ckeditor',
+    'name' => 'maintenance_note',
+    'label' => 'Maintenance note'
+],
+```
+
 #### select
 
 A select box can be defined with options:

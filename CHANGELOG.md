@@ -2,6 +2,9 @@
 
 All notable changes to `qcod/laravel-app-settings` will be documented in this file
 
+## 1.4.0 - 2020-09-24
+- Laravel 8 support
+
 ## 1.3.0 - 2020-03-22
 - Laravel 7 support
 

@@ -64,6 +64,12 @@ return [
     // Any middleware you want to run on above route
     'middleware' => [],
 
+    // Route Names
+    'route_names' => [
+        'index' => 'settings.index',
+        'store' => 'settings.store',
+    ],
+    
     // View settings
     'setting_page_view' => 'app_settings::settings_page',
     'flash_partial' => 'app_settings::_flash',

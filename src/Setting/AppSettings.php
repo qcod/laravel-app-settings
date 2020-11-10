@@ -13,7 +13,7 @@ class AppSettings
     /**
      * @var SettingStorage
      */
-    private $settingStorage;
+    protected $settingStorage;
 
     /**
      * AppSettings constructor.
@@ -214,7 +214,7 @@ class AppSettings
      * @param bool $out
      * @return bool|int|mixed|string
      */
-    private function castValue($dataType, $value, $out = false)
+    protected function castValue($dataType, $value, $out = false)
     {
         switch ($dataType) {
             case 'array':
@@ -285,7 +285,7 @@ class AppSettings
      * @param $out
      * @return array|mixed|string
      */
-    private function castToArray($value, $out)
+    protected function castToArray($value, $out)
     {
         if ($out) {
             return empty($value) ? [] : json_decode($value, true);
@@ -301,7 +301,7 @@ class AppSettings
      * @param $request Request
      * @return string|null
      */
-    private function uploadFile($setting, $request)
+    protected function uploadFile($setting, $request)
     {
         $settingName = Arr::get($setting, 'name');
 
@@ -337,7 +337,7 @@ class AppSettings
      * @param $oldFile
      * @param $disk
      */
-    private function deleteFile($oldFile, $disk): void
+    protected function deleteFile($oldFile, $disk): void
     {
         if ($oldFile && Storage::disk($disk)->exists($oldFile)) {
             Storage::disk($disk)->delete($oldFile);

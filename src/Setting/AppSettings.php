@@ -37,7 +37,7 @@ class AppSettings
         $groupName = $this->getSettingsGroupName();
         if( $groupName && is_callable($groupName) ) {
             $groupName = $this->runCallback($groupName, 'setting_group', null);
-            $this->settingStorage->group($groupName);
+            $this->setStorageGroup($groupName);
         }
     }
 

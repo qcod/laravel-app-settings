@@ -43,6 +43,16 @@ class AppSettings
     }
 
     /**
+     * Sets the current storage group.
+     *
+     * @param string $groupName
+     */
+    public function setStorageGroup($groupName)
+    {
+        $this->settingStorage->group($groupName);
+    }
+
+    /**
      * Get al the settings from storage
      *
      * @param bool $fresh

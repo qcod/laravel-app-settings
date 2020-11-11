@@ -32,13 +32,12 @@ class AppSettings
      */
     public function setSettingStorage(SettingStorage $settingStorage)
     {
-        $groupName = $this->getSettingsGroupName();
+        $this->settingStorage = $settingStorage;
 
+        $groupName = $this->getSettingsGroupName();
         if( $groupName && is_callable($groupName) ) {
             $groupName = $this->runCallback($groupName, 'setting_group', null);
-            $this->settingStorage = $settingStorage->group($groupName);
-        } else {
-            $this->settingStorage = $settingStorage;
+            $this->settingStorage->group($groupName);
         }
     }
 

@@ -22,6 +22,16 @@ class AppSettings
      */
     public function __construct(SettingStorage $settingStorage)
     {
+		$this->setSettingStorage($settingStorage);
+    }
+
+    /**
+     * Sets the settings storage.
+     *
+     * @param SettingStorage $settingStorage
+     */
+    public function setSettingStorage(SettingStorage $settingStorage)
+    {
         $groupName = $this->getSettingsGroupName();
 
         if( $groupName && is_callable($groupName) ) {

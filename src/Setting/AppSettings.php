@@ -22,7 +22,7 @@ class AppSettings
      */
     public function __construct(SettingStorage $settingStorage)
     {
-		$this->setSettingStorage($settingStorage);
+        $this->setSettingStorage($settingStorage);
     }
 
     /**

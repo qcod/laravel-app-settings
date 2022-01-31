@@ -141,7 +141,7 @@ If your app needs different url to access the settings page you can change from 
 
 ### Use Group Setting
 
-Many time you want to store settings in a group. With version `1.1` you can define a group name from your `config/app_settings.php`. You have a closer to return the name of group as string
+Many time you want to store settings in a group. With version `1.1` you can define a group name from your `config/app_settings.php`. You have a closer or a class namespace to return the name of group as string
 
 ```php
 return [
@@ -156,7 +156,9 @@ return [
     }
 ```
 
-In this case you can have different settings for each user.
+In this case you can have different settings for each user. 
+
+🔥 You can also set settings group at runtime using `app('app-settings')->setStorageGroup('my-storage-group')`.
 
 ### Use without UI
 

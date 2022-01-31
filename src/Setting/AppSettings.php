@@ -52,7 +52,7 @@ class AppSettings
     }
 
     /**
-     * Get al the settings from storage
+     * Get all the settings from storage
      *
      * @param bool $fresh
      * @return \Illuminate\Support\Collection

@@ -22,7 +22,7 @@
   ],
   "require": {
     "php": "^7.3|^8.0",
-    "laravel/framework": "~5.8.0|^6.0|^7.0|^8.0|^9.0",
+    "laravel/framework": "^6.0|^7.0|^8.0|^9.0",
     "qcod/laravel-settings": "^1.1"
   },
   "require-dev": {

@@ -6,6 +6,23 @@ use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 abstract class TestCase extends OrchestraTestCase
 {
+    protected function assertArraySubset(array $subset, $array): void
+    {
+        if ($array instanceof \Illuminate\Support\Collection) {
+            $array = $array->all();
+        }
+
+        foreach ($subset as $key => $value) {
+            $this->assertArrayHasKey($key, $array);
+
+            if (is_array($value)) {
+                $this->assertArraySubset($value, $array[$key]);
+            } else {
+                $this->assertSame($value, $array[$key]);
+            }
+        }
+    }
+
     /**
      * @param \Illuminate\Foundation\Application $app
      */

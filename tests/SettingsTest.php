@@ -15,9 +15,8 @@ class SettingsTest extends TestCase
     /**
      * it shows default settings url
      *
-     * @test
      */
-    public function it_shows_default_settings_url()
+    public function test_it_shows_default_settings_url()
     {
         // this should be default url
         $this->get('settings')
@@ -28,9 +27,8 @@ class SettingsTest extends TestCase
     /**
      * it validates setting from defined rules on inputs
      *
-     * @test
      */
-    public function it_validates_setting_from_defined_rules_on_inputs()
+    public function test_it_validates_setting_from_defined_rules_on_inputs()
     {
         $this->configureInputs([
             [
@@ -50,9 +48,8 @@ class SettingsTest extends TestCase
     /**
      * it saves setting into db on submit form
      *
-     * @test
      */
-    public function it_saves_setting_into_db_on_submit_form()
+    public function test_it_saves_setting_into_db_on_submit_form()
     {
         $this->configureInputs([
             [
@@ -78,9 +75,8 @@ class SettingsTest extends TestCase
     /**
      * it use group defined in settings config to store the settings
      *
-     * @test
      */
-    public function it_use_group_defined_in_settings_config_to_store_the_settings()
+    public function test_it_use_group_defined_in_settings_config_to_store_the_settings()
     {
         config()->set('app_settings.setting_group', function () {
             return 'test_1';
@@ -110,9 +106,8 @@ class SettingsTest extends TestCase
     /**
      * it dont removes abandoned settings if its set in config
      *
-     * @test
      */
-    public function it_dont_removes_abandoned_settings_if_its_set_in_config()
+    public function test_it_dont_removes_abandoned_settings_if_its_set_in_config()
     {
         config(['app_settings.remove_abandoned_settings' => false]);
 
@@ -150,9 +145,8 @@ class SettingsTest extends TestCase
     /**
      * it removes abandoned settings on save
      *
-     * @test
      */
-    public function it_removes_abandoned_settings_on_save()
+    public function test_it_removes_abandoned_settings_on_save()
     {
         config(['app_settings.remove_abandoned_settings' => true]);
 
@@ -195,9 +189,8 @@ class SettingsTest extends TestCase
     /**
      * it uploads file and stores path on image type or file type inputs
      *
-     * @test
      */
-    public function it_uploads_file_and_stores_path_on_image_type_or_file_type_inputs()
+    public function test_it_uploads_file_and_stores_path_on_image_type_or_file_type_inputs()
     {
         $this->configureInputs([
             [
@@ -231,9 +224,8 @@ class SettingsTest extends TestCase
     /**
      * it does not auto upload file if a mutator is defined
      *
-     * @test
      */
-    public function it_does_not_auto_upload_file_if_a_mutator_is_defined()
+    public function test_it_does_not_auto_upload_file_if_a_mutator_is_defined()
     {
         $this->configureInputs([
             [

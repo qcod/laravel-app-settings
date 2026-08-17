@@ -13,9 +13,8 @@ class SettingUITest extends TestCase
     /**
      * it shows defined settings section with title description
      *
-     * @test
      */
-    public function it_shows_defined_settings_section_with_title_description()
+    public function test_it_shows_defined_settings_section_with_title_description()
     {
         // configure
         config(['app_settings.sections' => [
@@ -38,9 +37,8 @@ class SettingUITest extends TestCase
     /**
      * it can change the classes for section and input by config
      *
-     * @test
      */
-    public function it_can_change_the_classes_for_section_and_input_by_config()
+    public function test_it_can_change_the_classes_for_section_and_input_by_config()
     {
         // configure
         config(['app_settings.section_class' => 'c-card']);
@@ -58,9 +56,8 @@ class SettingUITest extends TestCase
     /**
      * it can change the submit button text
      *
-     * @test
      */
-    public function it_can_change_the_submit_button_text()
+    public function test_it_can_change_the_submit_button_text()
     {
         // configure
         config(['app_settings.submit_btn_text' => 'Submit']);
@@ -74,9 +71,8 @@ class SettingUITest extends TestCase
     /**
      * it shows inputs defined in section
      *
-     * @test
      */
-    public function it_shows_inputs_defined_in_section()
+    public function test_it_shows_inputs_defined_in_section()
     {
         // configure
         $inputs = [
@@ -103,9 +99,8 @@ class SettingUITest extends TestCase
     /**
      * it shows defined  email type input
      *
-     * @test
      */
-    public function it_shows_defined_email_type_input()
+    public function test_it_shows_defined_email_type_input()
     {
         // configure
         $inputs = [
@@ -129,9 +124,8 @@ class SettingUITest extends TestCase
     /**
      * it shows number type input
      *
-     * @test
      */
-    public function it_shows_number_type_input()
+    public function test_it_shows_number_type_input()
     {
         // configure
         $inputs = [
@@ -152,9 +146,8 @@ class SettingUITest extends TestCase
     /**
      * it shows select input with option
      *
-     * @test
      */
-    public function it_shows_select_input_with_options()
+    public function test_it_shows_select_input_with_options()
     {
         // configure
         $inputs = [
@@ -177,9 +170,8 @@ class SettingUITest extends TestCase
     /**
      * it can populate options from database dynamically
      *
-     * @test
      */
-    public function it_can_populate_options_from_database_dynamically()
+    public function test_it_can_populate_options_from_database_dynamically()
     {
         $this->configureInputs([
             [
@@ -202,9 +194,8 @@ class SettingUITest extends TestCase
     /**
      * it shows textarea input
      *
-     * @test
      */
-    public function it_shows_textarea_input()
+    public function test_it_shows_textarea_input()
     {
         // configure
         $inputs = [
@@ -226,9 +217,8 @@ class SettingUITest extends TestCase
     /**
      * its shows checkbox
      *
-     * @test
      */
-    public function its_shows_checkbox()
+    public function test_its_shows_checkbox()
     {
         // configure
         $inputs = [
@@ -252,9 +242,8 @@ class SettingUITest extends TestCase
     /**
      * it shows a boolean input which can be a select or radio input
      *
-     * @test
      */
-    public function it_shows_a_boolean_input_which_can_be_a_select_or_radio_input()
+    public function test_it_shows_a_boolean_input_which_can_be_a_select_or_radio_input()
     {
         // configure
         $inputs = [
@@ -305,9 +294,8 @@ class SettingUITest extends TestCase
     /**
      * it shows file input type on image
      *
-     * @test
      */
-    public function it_shows_file_input_type_on_image()
+    public function test_it_shows_file_input_type_on_image()
     {
         // configure
         $inputs = [
@@ -329,9 +317,8 @@ class SettingUITest extends TestCase
     /**
      * it shows file input on type of file
      *
-     * @test
      */
-    public function it_shows_file_input_on_type_of_file()
+    public function test_it_shows_file_input_on_type_of_file()
     {
         // configure
         $inputs = [
@@ -353,9 +340,8 @@ class SettingUITest extends TestCase
     /**
     * it overrides input group class
     * 
-    * @test
     */
-    public function it_overrides_input_group_class()
+    public function test_it_overrides_input_group_class()
     {
         config(['app_settings.input_wrapper_class' => 'new-input-wrapper']);
 
@@ -370,9 +356,8 @@ class SettingUITest extends TestCase
     /**
      * it shows a friendly notifice when un supported type input defined
      *
-     * @test
      */
-    public function it_shows_a_friendly_notifice_when_un_supported_type_input_defined()
+    public function test_it_shows_a_friendly_notifice_when_un_supported_type_input_defined()
     {
         // configure
         $inputs = [
